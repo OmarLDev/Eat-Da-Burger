@@ -12,10 +12,11 @@ var orm = {
       cb(result);
     });
   },
-  create: function(table,vals, cb) {
+  create: function(table, vals, cb) {
     var queryString = "INSERT INTO " + table;
     queryString += "(burger_name, devoured) VALUES (?,?)" 
     console.log(queryString);
+    console.log(vals);
 
     connection.query(queryString, vals, function(err, result) {
       if (err) {
@@ -26,15 +27,17 @@ var orm = {
     });
   },
   // An example of objColVals would be {name: panther, sleepy: true}
-  update: function(table, condition, cb) {
-    var queryString = "UPDATE " + table;
-
-    queryString += " SET devoured = ?";
-    queryString += " WHERE ";
+  update: function(params, condition, cb) {
+    console.log(params);
+    console.log(condition);
+    var queryString = "UPDATE burgers";
+    queryString += " SET ";
+    queryString += "devoured = 1";
+    queryString += " WHERE "; 
     queryString += condition;
 
     console.log(queryString);
-    connection.query(queryString, function(err, result) {
+    connection.query(queryString, params,function(err, result) {
       if (err) {
         throw err;
       }
@@ -44,5 +47,4 @@ var orm = {
   }
 };
 
-// Export the orm object for the model (cat.js).
 module.exports = orm;
