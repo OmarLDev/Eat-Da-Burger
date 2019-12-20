@@ -20,7 +20,7 @@ router.post("/api/burgers", function(req, res) {
   burger.create([
     req.body.name, req.body.devoured
   ], function(result) {
-    // Send back the ID of the new quote
+    // Send back the ID of the new burger
     res.json({ id: result.insertId });
   });
 });
@@ -30,9 +30,11 @@ router.put("/api/burger/:id", function(req, res) {
 
   burger.update({
     devoured : req.body.devoured
-  }, condition, (result) => {
+  }, condition, function(result){
     console.log(result);
-  })
+    res.json({result});
+  });
+
 });
 
 // Export routes for server.js to use.
